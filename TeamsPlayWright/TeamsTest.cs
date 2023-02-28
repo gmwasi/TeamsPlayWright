@@ -4,8 +4,7 @@ namespace TeamsPlayWright
     // Define a test suite
     public class TeamsSendMessageToUserTest : PageTest
     {
-        // Define a test
-        [Test]
+        // [Test]
         public async Task ShouldSendMessageToUser()
         {
             // Navigate to Teams web app
@@ -18,7 +17,7 @@ namespace TeamsPlayWright
             await Page.ClickAsync("[data-tid='nextButton']");
 
             // Find and fill in the password input element
-            await Page.FillAsync("[placeholder='Password']", "Kaj15350");
+            await Page.FillAsync("[placeholder='Password']", "");
 
             // Click on the sign-in button
             await Page.ClickAsync("[type='submit']");
@@ -47,6 +46,7 @@ namespace TeamsPlayWright
             }
         }
 
+        [Test]
         public async Task ShouldLoginAndSendMessageToUser()
         {
             await using var browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
@@ -61,13 +61,13 @@ namespace TeamsPlayWright
 
             await page.GetByPlaceholder("Email, phone, or Skype").ClickAsync();
 
-            await page.GetByPlaceholder("Email, phone, or Skype").FillAsync("monitor2@syntheticww.onmicrosoft.com");
+            await page.GetByPlaceholder("Email, phone, or Skype").FillAsync("monitor10@sigssyntheticppe.onmicrosoft.com");
 
             await page.GetByRole(AriaRole.Button, new() { Name = "Next" }).ClickAsync();
 
             await page.GetByPlaceholder("Password").ClickAsync();
 
-            await page.GetByPlaceholder("Password").FillAsync("Kaj15350");
+            await page.GetByPlaceholder("Password").FillAsync("");
 
             await page.GetByRole(AriaRole.Button, new() { Name = "Sign in" }).ClickAsync();
 
@@ -75,23 +75,30 @@ namespace TeamsPlayWright
 
             await page.GetByRole(AriaRole.Button, new() { Name = "Yes" }).ClickAsync();
 
-            await page.GotoAsync("https://teams.microsoft.com/");
+            // await page.GetByRole(AriaRole.Button, new() { Name = "Dismiss" }).ClickAsync();
 
-            await page.GotoAsync("https://teams.microsoft.com/_");
+            await page.GetByRole(AriaRole.Button, new() { Name = "Chat Toolbar more options" }).ClickAsync();
 
-            await page.GotoAsync("https://teams.microsoft.com/_#/conversations/General?threadId=19:YDdjMdShbkZNvLnbmAf_1iVx6n1-cjzC-5_5sQtrrY01@thread.tacv2&ctx=channel");
+            await page.GetByRole(AriaRole.Button, new() { Name = "New Chat (Alt+N)" }).ClickAsync();
 
-            await page.Locator("virtual-repeat").ClickAsync();
+            // await page.FrameLocator("iframe").GetByPlaceholder("Enter name, email, group or tag").ClickAsync();
 
-            await page.GetByPlaceholder("Look for messages, files, and more. Or type / for a list of commands.").FillAsync("brianmwas");
+            //await page.FrameLocator("iframe").GetByPlaceholder("Enter name, email, group or tag").FillAsync("brianmwasi@microsoft.com");
 
-            await page.GetByText("Brian Mwasi (External) BRIANMWASI").ClickAsync();
+           // await Page.Keyboard.PressAsync("Enter");
 
-            await page.FrameLocator("iframe").GetByRole(AriaRole.Region, new() { Name = "Compose" }).GetByRole(AriaRole.Paragraph).ClickAsync();
+            await page.GetByPlaceholder("Enter name, email, group or tag").FillAsync("brianmwasi@microsoft.com");
 
-            await page.FrameLocator("iframe").GetByRole(AriaRole.Region, new() { Name = "Compose" }).GetByRole(AriaRole.Paragraph).ClickAsync();
+            await page.GetByRole(AriaRole.Paragraph).ClickAsync();
 
-            await page.FrameLocator("iframe").GetByTitle("Send").ClickAsync();
+            await page.GetByRole(AriaRole.Textbox).PressAsync("Enter");
+
+
+            // await page.FrameLocator("iframe").GetByRole(AriaRole.Region, new() { Name = "Compose" }).GetByRole(AriaRole.Textbox).ClickAsync();
+
+            //await page.FrameLocator("iframe").GetByRole(AriaRole.Region, new() { Name = "Compose" }).GetByRole(AriaRole.Textbox).FillAsync("Ping");
+
+            //await page.FrameLocator("iframe").GetByTitle("Send").ClickAsync();
 
         }
     }
